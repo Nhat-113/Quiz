@@ -1,0 +1,242 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.0
+-- https://www.phpmyadmin.net/
+--
+-- Host: localhost:3306
+-- Generation Time: Mar 28, 2023 at 01:58 PM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 7.4.29
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `b7_32976501_quiz_app`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_admin`
+--
+
+CREATE TABLE `tbl_admin` (
+  `ID` int(11) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(50) NOT NULL,
+  `name` text NOT NULL,
+  `role` tinyint(1) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tbl_admin`
+--
+
+INSERT INTO `tbl_admin` (`ID`, `username`, `password`, `name`, `role`) VALUES
+(6, 'admin1', 'admin1', 'Nguyễn Tiến Dũng', 0),
+(7, 'admin2', 'admin', 'Phan Trường Huy', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_course`
+--
+
+CREATE TABLE `tbl_course` (
+  `ID` int(11) NOT NULL,
+  `title` text NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tbl_course`
+--
+
+INSERT INTO `tbl_course` (`ID`, `title`, `active`) VALUES
+(40, 'PHP Tutorial', 1),
+(41, 'Java Tutorial', 1),
+(42, 'Dart Tutorial', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_question`
+--
+
+CREATE TABLE `tbl_question` (
+  `ID` int(11) NOT NULL,
+  `content` text NOT NULL,
+  `courseID` int(11) NOT NULL,
+  `answer_a` text NOT NULL,
+  `answer_b` text NOT NULL,
+  `answer_c` text NOT NULL,
+  `answer_d` text NOT NULL,
+  `answer_index` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tbl_question`
+--
+
+INSERT INTO `tbl_question` (`ID`, `content`, `courseID`, `answer_a`, `answer_b`, `answer_c`, `answer_d`, `answer_index`) VALUES
+(18, 'What does PHP stand for?', 40, 'Privare Home Page', 'Personal Hypertext Processor', 'PHP: Hypertext Preprocesscor', 'PHP: Privare Home Page', 0),
+(19, 'PHP server scripts are surrounded by delimiters, which?', 40, '<?php...?>  ', '<script>...</script>', '<?php>...</?>', '<?php>...</?>', 0),
+(20, 'How do you write \"Hello World\" in PHP', 40, 'Document.Write(\"Hello World\");', '\"Hello World\";', 'print(\"Hello World\")', 'echo \"Hello World\";', 3),
+(21, 'All variables in PHP start with which symbol?', 40, '$ ', '&', '&', '#', 0),
+(22, 'What is the correct way to end a PHP statement?', 40, 'New line', ';', '.', '</php>', 1),
+(23, 'What is a correct syntax to output \"Hello World\" in Java?', 41, 'System.out.println(\"Hello World\");', 'print (\"Hello World\");', 'echo(\"Hello World\");', 'Console.WriteLine(\"Hello World\");', 0),
+(24, 'How do you insert COMMENTS in Java code?', 41, '// This is a comment  ', '# This is a comment', '/* This is a comment', '* This is a comment', 0),
+(25, 'Which data type is used to create a variable that should store text?', 41, 'string', 'Txt', 'myString', 'String', 3),
+(26, 'How do you create a variable with the numeric value 5?', 41, 'int x = 5; ', 'num x = 5', 'num x = 5', 'num x = 5', 0),
+(27, 'What is a correct syntax to output \"Hello World\" in Dart?', 42, 'Console.WriteLine(\"Hello World\");', 'print(\"Hello World\");', 'System.out.println(\"Hello World\");', 'echo(\"Hello World\");', 1),
+(28, 'Which data type is used to create a variable that should store text?', 42, 'string', 'Txt', 'myString', 'String', 3),
+(29, 'How do you create a variable with the numeric value 5?', 42, 'int x = 5;', 'num x = 5', 'x = 5;', 'float x = 5;', 0),
+(30, 'Which method can be used to return a string in upper case letters?', 42, 'touppercase()', 'toUpperCase() ', 'upperCase()', 'tuc()', 1),
+(31, 'Which operator can be used to compare two values?', 42, '><', '=', '<>', '==', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_rank`
+--
+
+CREATE TABLE `tbl_rank` (
+  `ID` int(11) NOT NULL,
+  `courseID` int(11) NOT NULL,
+  `userID` int(11) NOT NULL,
+  `score` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tbl_rank`
+--
+
+INSERT INTO `tbl_rank` (`ID`, `courseID`, `userID`, `score`) VALUES
+(65, 42, 60, 1),
+(66, 42, 61, 4),
+(67, 42, 62, 3),
+(68, 40, 60, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_user`
+--
+
+CREATE TABLE `tbl_user` (
+  `ID` int(11) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(50) NOT NULL,
+  `full_name` mediumtext NOT NULL,
+  `phone` varchar(12) NOT NULL,
+  `question_security` mediumtext NOT NULL,
+  `bod` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tbl_user`
+--
+
+INSERT INTO `tbl_user` (`ID`, `username`, `password`, `full_name`, `phone`, `question_security`, `bod`) VALUES
+(61, 'nguyenvana', 'nguyenvana', 'Nguyễn Văn A', '13124329234', 'nguyenvana', '2019-01-19'),
+(62, 'nguyenvanb', 'nguyenvanb', 'Nguyen Van B', '2412424124', 'nguyenvanb', '2023-01-13');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `tbl_admin`
+--
+ALTER TABLE `tbl_admin`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `tbl_course`
+--
+ALTER TABLE `tbl_course`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `tbl_question`
+--
+ALTER TABLE `tbl_question`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `FK_CourseQuestion` (`courseID`);
+
+--
+-- Indexes for table `tbl_rank`
+--
+ALTER TABLE `tbl_rank`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `FK_CourseRank` (`courseID`),
+  ADD KEY `FK_UserRank` (`userID`);
+
+--
+-- Indexes for table `tbl_user`
+--
+ALTER TABLE `tbl_user`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `tbl_admin`
+--
+ALTER TABLE `tbl_admin`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
+--
+-- AUTO_INCREMENT for table `tbl_course`
+--
+ALTER TABLE `tbl_course`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+
+--
+-- AUTO_INCREMENT for table `tbl_question`
+--
+ALTER TABLE `tbl_question`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+
+--
+-- AUTO_INCREMENT for table `tbl_rank`
+--
+ALTER TABLE `tbl_rank`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+
+--
+-- AUTO_INCREMENT for table `tbl_user`
+--
+ALTER TABLE `tbl_user`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `tbl_question`
+--
+ALTER TABLE `tbl_question`
+  ADD CONSTRAINT `FK_CourseQuestion` FOREIGN KEY (`courseID`) REFERENCES `tbl_course` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tbl_rank`
+--
+ALTER TABLE `tbl_rank`
+  ADD CONSTRAINT `FK_CourseRank` FOREIGN KEY (`courseID`) REFERENCES `tbl_course` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_UserRank` FOREIGN KEY (`userID`) REFERENCES `tbl_user` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
